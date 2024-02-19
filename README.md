@@ -52,6 +52,10 @@ The chart can be customized using the following configuration parameters:
 
 | Parameter                            | Description                                     | Default                                                    |
 | ----------------------------------   | ---------------------------------------------   | ---------------------------------------------------------- |
+| `service.nodePort` | nodePort of service | `31882` |
+| `analyzer.topology.probes` | Topology probes of analyzer | `k8s ovn ovnk8s` |
+| `analyzer.ovnsocket.path` | Location of OVN's control socket on master node | `/var/run/openvswitch` |
+| | | |
 | `image.repository`                   | Skydive image repository                        | `skydive/skydive`                                           |
 | `image.tag`                          | Image tag                                       | `0.24.0`                                                   |
 | `image.secretName`                   | Image secret for private repository             | Empty                                                      |

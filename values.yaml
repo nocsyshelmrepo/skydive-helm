@@ -31,6 +31,7 @@ service:
   name: skydive
   port: 8082
   type: NodePort
+  nodePort: 31882
 
 etcd:
   port: 12379
@@ -38,6 +39,9 @@ etcd:
 analyzer:
   topology:
     fabric: "TOR1->*[Type=host]/eth0"
+    probes: "k8s ovn ovnk8s"
+  ovnsocket:
+    path: "/var/run/openvswitch"
 
 agent:
   topology:
