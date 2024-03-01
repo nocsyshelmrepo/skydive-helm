@@ -46,6 +46,10 @@ analyzer:
 agent:
   topology:
     probes: "ovsdb docker runc"
+  lldp:
+    topology:
+      # use all interfaces if this is empty
+      infs: ""
 
 ## env variables
 env: []

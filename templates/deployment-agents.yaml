@@ -78,6 +78,8 @@ spec:
           value: {{ .Values.agent.topology.probes }}
         - name: SKYDIVE_AGENT_TOPOLOGY_RUNC_RUN_PATH
           value: /var/run/runc /var/run/runc-ctrs /var/run/containerd/runc
+        - name: SKYDIVE_AGENT_TOPOLOGY_LLDP_INTERFACES
+          value: {{ .Values.agent.lldp.topology.infs }}
       {{- if .Values.env }}
 {{ toYaml .Values.env | indent 8 }}
       {{- end }}

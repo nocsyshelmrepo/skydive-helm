@@ -55,6 +55,7 @@ The chart can be customized using the following configuration parameters:
 | `service.nodePort` | nodePort of service | `31882` |
 | `analyzer.topology.probes` | Topology probes of analyzer | `k8s ovn ovnk8s` |
 | `analyzer.ovnsocket.path` | Location of OVN's control socket on master node | `/var/run/openvswitch` |
+| `agent.lldp.topology.infs` | Interfaces to enable lldp probes | Empty |
 | | | |
 | `image.repository`                   | Skydive image repository                        | `skydive/skydive`                                           |
 | `image.tag`                          | Image tag                                       | `0.24.0`                                                   |
