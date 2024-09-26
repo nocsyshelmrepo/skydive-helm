@@ -25,6 +25,10 @@ spec:
         heritage: "{{ .Release.Service }}"
         tier: analyzer
     spec:
+      {{- if contains "ovn" .Values.analyzer.topology.probes }}
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      {{- end }}
       serviceAccountName: skydive-service-account
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
@@ -84,7 +88,7 @@ spec:
         - name: SKYDIVE_UI
           value: '{"theme":"light","k8s_enabled":"true"}'
         - name: SKYDIVE_ANALYZER_TOPOLOGY_PROBES
-          value: "k8s"
+          value: {{ .Values.analyzer.topology.probes }}
       {{- if .Values.persistence.enabled }}
         - name: SKYDIVE_ANALYZER_FLOW_BACKEND
           value: "elasticsearchflow"
@@ -142,6 +146,12 @@ spec:
         volumeMounts:
         - name: ssl
           mountPath: /etc/ssl/certs
+
+{{- if contains "ovn" .Values.analyzer.topology.probes }}
+        - name: ovn
+          mountPath: /var/run/ovn
+{{- end }}
+
 {{- if .Values.exporter.enabled }}
       - name: skydive-exporter
         image: {{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}
@@ -272,6 +282,13 @@ spec:
       - name: ssl
         hostPath:
           path: /etc/ssl/certs
+
+    {{- if contains "ovn" .Values.analyzer.topology.probes }}
+      - name: ovn
+        hostPath:
+          path: {{ .Values.analyzer.ovnsocket.path }}
+    {{- end }}
+
      {{- if and .Values.exporter.enabled .Values.exporter.write.s3.installLocalMinio }}
       - name: data
         emptyDir: {}

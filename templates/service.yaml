@@ -13,6 +13,10 @@ spec:
   ports:
   - port: {{ .Values.service.port }}
     name: {{ .Values.service.name }}
+  {{- if contains "NodePort" .Values.service.type }}
+    nodePort: {{ .Values.service.nodePort }}
+  {{- end }}
+
   selector:
     app: {{ template "fullname" . }}
     tier: analyzer
